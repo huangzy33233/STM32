@@ -1,0 +1,38 @@
+# Keil / ARM build outputs
+**/Objects/
+**/Listings/
+*.o
+*.d
+*.axf
+*.elf
+*.hex
+*.map
+*.lnp
+*.htm
+*.log
+*.dep
+*.M51
+*.sct.bak
+
+# Keil user/session files
+*.uvguix.*
+*.Administrator
+*.scvd
+*.dbgconf
+*.lock
+
+# Packaged tools and archives
+*.exe
+*.EXE
+*.dll
+*.DLL
+*.rar
+*.zip
+*.7z
+*.pack
+*.bin
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
