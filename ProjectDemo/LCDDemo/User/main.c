@@ -17,9 +17,6 @@
 int main(void)
 {
     uint16_t adcValue=0;
-    uint8_t led1=10;
-    uint8_t led2=20;
-    uint8_t led3=30;
     float adcVoltage=0;
 
     //œµÕ≥ ±÷”≈‰÷√
@@ -57,13 +54,7 @@ int main(void)
 
     LCD_Init();
 
-    LCD_Fill(0,0,LCD_W,LCD_H,BLUE);
 
     while(1){
-        (void)adcValue;
-        (void)adcVoltage;
-        (void)led1;
-        (void)led2;
-        (void)led3;
     }
 }
