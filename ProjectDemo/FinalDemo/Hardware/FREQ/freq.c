@@ -88,11 +88,9 @@ void TIMER2_IRQHandler(void)
             }
             //º∆À„∆µ¬ 
             fre = (float)1000000U / count;     
-            printf("freq:%.1f\r\n",fre);
-            readvalue1=0;
-            count=0;
-            fre=0;
-            readvalue2=0;
+            readvalue1 = 0;
+            count = 0;
+            readvalue2 = 0;
             ccnumber = 0;
         }
     timer_interrupt_flag_clear(TIMER2, TIMER_INT_FLAG_CH0);

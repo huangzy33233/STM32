@@ -386,15 +386,15 @@ static uint16_t firstpoint = 1;
 
 void DrawCurve(uint16_t yValue)
 {
-    uint16_t x = 0, y = 0;
+    uint16_t x = 0;
     uint16_t i = 0;
 
-    y = yValue;
+
     if(firstpoint == 1)
     {
-        LCD_DrawPoint(0,y,GREEN);
+        LCD_DrawPoint(0,yValue,BLACK);
         lastx = 0;
-        lasty = y;
+        lasty = yValue;
         firstpoint = 0;
     }
     else
@@ -402,19 +402,19 @@ void DrawCurve(uint16_t yValue)
         x = lastx + 1;
         if(x < LCD_W)
         {
-            LCD_DrawLine(lastx,lasty,x,y,GREEN);
+            LCD_DrawLine(lastx,lasty,x,yValue,BLACK);
             for(i=0;i<LCD_H;i++)
             {
-                LCD_DrawPoint(x+1,i,BLACK);
+                LCD_DrawPoint(x+1,i,WHITE);
             }
             lastx = x;
-            lasty = y;
+            lasty = yValue;
         }
         else
         {
-            LCD_DrawPoint(0,y,GREEN);
+            LCD_DrawPoint(0,yValue,BLACK);
             lastx = 0;
-            lasty = y;
+            lasty = yValue;
         }
     }
 }

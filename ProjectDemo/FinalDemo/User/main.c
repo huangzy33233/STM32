@@ -18,29 +18,29 @@
 #define ADC_SAMPLE_PERIOD_MS    500U
 #define WAVE_DRAW_PERIOD_MS     2U
 #define LCD_DEMO_HOLD_MS        300U
-#define WAVE_Y_OFFSET           80U
 
 extern volatile uint32_t g_ms_tick;
 extern __IO float fre;
 
-static const uint8_t wave_data[120] = {
-    0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0,
-    33,33,33,33,33,33,33,33,33,33,
-    33,33,33,33,33,33,33,33,33,33,
-    33,33,33,33,33,33,33,33,33,33,
-    0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0,
-    33,33,33,33,33,33,33,33,33,33,
-    33,33,33,33,33,33,33,33,33,33,
-    33,33,33,33,33,33,33,33,33,33
+static const uint16_t wave_value[120] = {
+    50,50,50,50,50,50,50,50,50,50,
+    50,50,50,50,50,50,50,50,50,50,
+    50,50,50,50,50,50,50,50,50,50,
+    25,25,25,25,25,25,25,25,25,25,
+    25,25,25,25,25,25,25,25,25,25,
+    25,25,25,25,25,25,25,25,25,25,
+    50,50,50,50,50,50,50,50,50,50,
+    50,50,50,50,50,50,50,50,50,50,
+    50,50,50,50,50,50,50,50,50,50,
+    25,25,25,25,25,25,25,25,25,25,
+    25,25,25,25,25,25,25,25,25,25,
+    25,25,25,25,25,25,25,25,25,25
 };
 
 static void Demo_Init(void);
 static void EC11_Task(uint32_t now);
 static void ADC_Task(uint32_t now);
+static void Freq_Print_Task(void);
 static void Wave_Task(uint32_t now);
 
 int main(void)
@@ -56,9 +56,8 @@ int main(void)
         Scanf_Key();
         EC11_Task(now);
         ADC_Task(now);
+        Freq_Print_Task();
         Wave_Task(now);
-
-        (void)fre;
     }
 }
 
@@ -86,8 +85,6 @@ static void Demo_Init(void)
     LCD_Fill(0,0,LCD_W,LCD_H,BLUE);
     delay_1ms(LCD_DEMO_HOLD_MS);
     LCD_Fill(0,0,LCD_W,LCD_H,WHITE);
-    delay_1ms(LCD_DEMO_HOLD_MS);
-    LCD_ShowUI();
 }
 
 static void EC11_Task(uint32_t now)
@@ -135,6 +132,15 @@ static void ADC_Task(uint32_t now)
     printf("adcVoltage= %f,V_in = %.3f V\r\n", adcVoltage, V_in);
 }
 
+static void Freq_Print_Task(void)
+{
+    if(fre > 0)
+    {
+        printf("fre=%.1f\r\n", fre);
+        fre = 0;
+    }
+}
+
 static void Wave_Task(uint32_t now)
 {
     static uint32_t last_wave_time = 0;
@@ -146,10 +152,10 @@ static void Wave_Task(uint32_t now)
     }
 
     last_wave_time = now;
-    DrawCurve(WAVE_Y_OFFSET - wave_data[wave_index]);
+    DrawCurve(wave_value[wave_index]);
 
     wave_index++;
-    if(wave_index >= (sizeof(wave_data) / sizeof(wave_data[0])))
+    if(wave_index >= (sizeof(wave_value) / sizeof(wave_value[0])))
     {
         wave_index = 0;
     }
