@@ -63,48 +63,47 @@ void LCD_WR_REG(uint8_t reg)
 
 void LCD_Address_Set(uint16_t x1,uint16_t y1,uint16_t x2,uint16_t y2)
 {
-	if(USE_HORIZONTAL==0)
-	{
-		LCD_WR_REG(0x2a);//列地址设置
-		LCD_WR_DATA(x1);
-		LCD_WR_DATA(x2);
-		LCD_WR_REG(0x2b);//行地址设置
-		LCD_WR_DATA(y1);
-		LCD_WR_DATA(y2);
-		LCD_WR_REG(0x2c);//储存器写
-	}
-	else if(USE_HORIZONTAL==1)
-	{
-		LCD_WR_REG(0x2a);//列地址设置
-		LCD_WR_DATA(x1);
-		LCD_WR_DATA(x2);
-		LCD_WR_REG(0x2b);//行地址设置
-		LCD_WR_DATA(y1);
-		LCD_WR_DATA(y2);
-		LCD_WR_REG(0x2c);//储存器写
-	}
-	else if(USE_HORIZONTAL==2)
-	{
-		LCD_WR_REG(0x2a);//列地址设置
-		LCD_WR_DATA(x1);
-		LCD_WR_DATA(x2);
-		LCD_WR_REG(0x2b);//行地址设置
-		LCD_WR_DATA(y1);
-		LCD_WR_DATA(y2);
-		LCD_WR_REG(0x2c);//储存器写
-	}
-	else
-	{
-		LCD_WR_REG(0x2a);//列地址设置
-		LCD_WR_DATA(x1);
-		LCD_WR_DATA(x2);
-		LCD_WR_REG(0x2b);//行地址设置
-		LCD_WR_DATA(y1);
-		LCD_WR_DATA(y2);
-		LCD_WR_REG(0x2c);//储存器写
-	}    
+    if(USE_HORIZONTAL==0)
+    {
+        LCD_WR_REG(0x2a);//列地址设置
+        LCD_WR_DATA(x1+2);
+        LCD_WR_DATA(x2+2);
+        LCD_WR_REG(0x2b);//行地址设置
+        LCD_WR_DATA(y1+1);
+        LCD_WR_DATA(y2+1);
+        LCD_WR_REG(0x2c);//储存器写
+    }
+    else if(USE_HORIZONTAL==1)
+    {
+        LCD_WR_REG(0x2a);//列地址设置
+        LCD_WR_DATA(x1+2);
+        LCD_WR_DATA(x2+2);
+        LCD_WR_REG(0x2b);//行地址设置
+        LCD_WR_DATA(y1+1);
+        LCD_WR_DATA(y2+1);
+        LCD_WR_REG(0x2c);//储存器写
+    }
+    else if(USE_HORIZONTAL==2)
+    {
+        LCD_WR_REG(0x2a);//列地址设置
+        LCD_WR_DATA(x1+1);
+        LCD_WR_DATA(x2+1);
+        LCD_WR_REG(0x2b);//行地址设置
+        LCD_WR_DATA(y1+2);
+        LCD_WR_DATA(y2+2);
+        LCD_WR_REG(0x2c);//储存器写
+    }
+    else
+    {
+        LCD_WR_REG(0x2a);//列地址设置
+        LCD_WR_DATA(x1+1);
+        LCD_WR_DATA(x2+1);
+        LCD_WR_REG(0x2b);//行地址设置
+        LCD_WR_DATA(y1+2);
+        LCD_WR_DATA(y2+2);
+        LCD_WR_REG(0x2c);//储存器写
+    }
 }
-
 void LCD_Init(void)
 {
 	//初始化LCD屏幕引脚

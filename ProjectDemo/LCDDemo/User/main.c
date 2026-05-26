@@ -13,11 +13,11 @@
 #include "spi.h"
 #include "lcdinit.h"
 #include "lcdshow.h"
+#include "pic.h"
 
 int main(void)
 {
-    uint16_t adcValue=0;
-    float adcVoltage=0;
+    float t = 0;
 
     //系统时钟配置
     systick_config();
@@ -53,8 +53,18 @@ int main(void)
     //Init_FreqTimer();
 
     LCD_Init();
+    LCD_Fill(0, 0, LCD_W, LCD_H, WHITE);
+    Open_LED();
 
-
-    while(1){
+    while(1)
+    {
+        LCD_ShowChinese(0, 0, (uint8_t *)"中景园电子", RED, WHITE, 24, 0);
+        LCD_ShowString(24, 30, (const uint8_t *)"LCD W:", RED, WHITE, 16, 0);
+        LCD_ShowIntNum(72, 30, LCD_W, 3, RED, WHITE, 16);
+        LCD_ShowString(24, 50, (const uint8_t *)"LCD H:", RED, WHITE, 16, 0);
+        LCD_ShowIntNum(72, 50, LCD_H, 3, RED, WHITE, 16);
+        LCD_ShowFloatNum1(20, 80, t, 4, RED, WHITE, 16);
+        t += 0.11f;
+        LCD_ShowPicture(65, 80, 40, 40, gImage_1);
     }
 }
