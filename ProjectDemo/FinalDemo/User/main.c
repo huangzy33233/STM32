@@ -18,23 +18,24 @@
 #define ADC_SAMPLE_PERIOD_MS    500U
 #define WAVE_DRAW_PERIOD_MS     2U
 #define LCD_DEMO_HOLD_MS        300U
+#define WAVE_Y_OFFSET           80U
 
 extern volatile uint32_t g_ms_tick;
 extern __IO float fre;
 
-static const uint16_t wave_table[120] = {
-    80,80,80,80,80,80,80,80,80,80,
-    80,80,80,80,80,80,80,80,80,80,
-    80,80,80,80,80,80,80,80,80,80,
-    40,40,40,40,40,40,40,40,40,40,
-    40,40,40,40,40,40,40,40,40,40,
-    40,40,40,40,40,40,40,40,40,40,
-    80,80,80,80,80,80,80,80,80,80,
-    80,80,80,80,80,80,80,80,80,80,
-    80,80,80,80,80,80,80,80,80,80,
-    40,40,40,40,40,40,40,40,40,40,
-    40,40,40,40,40,40,40,40,40,40,
-    40,40,40,40,40,40,40,40,40,40
+static const uint8_t wave_data[120] = {
+    0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,
+    33,33,33,33,33,33,33,33,33,33,
+    33,33,33,33,33,33,33,33,33,33,
+    33,33,33,33,33,33,33,33,33,33,
+    0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,
+    33,33,33,33,33,33,33,33,33,33,
+    33,33,33,33,33,33,33,33,33,33,
+    33,33,33,33,33,33,33,33,33,33
 };
 
 static void Demo_Init(void);
@@ -85,6 +86,8 @@ static void Demo_Init(void)
     LCD_Fill(0,0,LCD_W,LCD_H,BLUE);
     delay_1ms(LCD_DEMO_HOLD_MS);
     LCD_Fill(0,0,LCD_W,LCD_H,WHITE);
+    delay_1ms(LCD_DEMO_HOLD_MS);
+    LCD_ShowUI();
 }
 
 static void EC11_Task(uint32_t now)
@@ -143,10 +146,10 @@ static void Wave_Task(uint32_t now)
     }
 
     last_wave_time = now;
-    DrawCurve(wave_table[wave_index]);
+    DrawCurve(WAVE_Y_OFFSET - wave_data[wave_index]);
 
     wave_index++;
-    if(wave_index >= (sizeof(wave_table) / sizeof(wave_table[0])))
+    if(wave_index >= (sizeof(wave_data) / sizeof(wave_data[0])))
     {
         wave_index = 0;
     }
